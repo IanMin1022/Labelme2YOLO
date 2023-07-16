@@ -10,7 +10,7 @@ Follow the steps to convert your labelme data either to coco data or yolov5 data
 ```
 
 ### 2. In the git directory, use pip to install prerequisite
-''' python
+''' 
   pip install -r requirements.txt
 '''
 
