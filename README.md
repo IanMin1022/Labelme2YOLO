@@ -9,7 +9,7 @@ Follow the steps to convert your labelme data either to coco data or yolov5 data
   git https://github.com/IanMin1022/Labelme2YOLO.git
 ```
 
-### 2. In the git directory, use pip to install prerequisites
+### 2. From the git directory, use pip to install prerequisites
 ``` python
   pip install -r requirements.txt
 ```
@@ -26,7 +26,7 @@ Arguments are as followed
   python3 labelme2coco.py --input_dir=/content/dataset --output_dir /content/dataset
 ```
 
-### For yolov5 data
+#### For yolov5 data
 ``` python
   python3 labelme2yolo.py --input_dir=/content/dataset/ --output_dir /content/dataset
 ```
