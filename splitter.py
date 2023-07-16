@@ -1,12 +1,38 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import GroupShuffleSplit as sklearnGroupShuffleSplit
-from pylabel.shared import schema
 
 
 class Split:
     def __init__(self, dataset=None):
         self.dataset = dataset
+        self.schema = [
+            "img_folder",
+            "img_filename",
+            "img_path",
+            "img_id",
+            "img_width",
+            "img_height",
+            "img_depth",
+            "ann_segmented",
+            "ann_bbox_xmin",
+            "ann_bbox_ymin",
+            "ann_bbox_xmax",
+            "ann_bbox_ymax",
+            "ann_bbox_width",
+            "ann_bbox_height",
+            "ann_area",
+            "ann_segmentation",
+            "ann_iscrowd",
+            "ann_pose",
+            "ann_truncated",
+            "ann_difficult",
+            "cat_id",
+            "cat_name",
+            "cat_supercategory",
+            "split",
+            "annotated",
+        ]
 
     def UnSplit(self):
         """Unsplit the dataset by setting all values of the split column to null."""
@@ -49,7 +75,7 @@ class Split:
             df_test.loc[val_indexes_2, "split"] = "val"
             self.dataset.df = pd.concat([df_train, df_test])
         self.dataset.df = self.dataset.df.reset_index(drop=True)
-        self.dataset.df = self.dataset.df[schema]
+        self.dataset.df = self.dataset.df[self.schema]
 
     # Written with the help of https://stackoverflow.com/questions/56872664/complex-dataset-split-stratifiedgroupshufflesplit
     def StratifiedGroupShuffleSplit(
@@ -183,4 +209,4 @@ class Split:
 
         self.dataset.df = df
         self.dataset.df = self.dataset.df.reset_index(drop=True)
-        self.dataset.df = self.dataset.df[schema]
+        self.dataset.df = self.dataset.df[self.schema]

@@ -2,8 +2,8 @@
 All other modules are sub-modules of the dataset object. 
 """
 
-from pylabel.analyze import Analyze
-from pylabel.splitter import Split
+from analyze import Analyze
+from splitter import Split
 
 import numpy as np
 

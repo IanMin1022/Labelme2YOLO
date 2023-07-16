@@ -3,9 +3,7 @@ from typing import List
 import pandas as pd
 import numpy as np
 import xml.etree.ElementTree as ET
-import xml.dom.minidom
 import os, sys
-from os.path import exists
 from pathlib import Path, PurePath
 import yaml
 import shutil
@@ -14,7 +12,6 @@ import csv
 import argparse
 
 from labelme2coco import labelme2coco
-from pathlib import PurePath, Path
 from dataset import Dataset
 
 
