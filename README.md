@@ -1,7 +1,9 @@
 # Labelme2YOLO
-Personal purpose. mixture of pylabel and labelme2coco
+This repo is for personal purposes feel free to use it if you need it. FYI, this is mixture of pylabel and labelme2coco for the reference.
 
-## Translate: Convert annotation formats with a single line of code:
-importer.ImportCoco(path_to_annotations).export.ExportToYoloV5()
+## Instruction 
+Follow the steps to convert your labelme data either to coco data or yolov5 data
 
-### fgfgfg
+``` python
+  hello
+```
