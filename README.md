@@ -17,8 +17,8 @@ Follow the steps to convert your labelme data either to coco data or yolov5 data
 ### 3. Execute labelme2coco.py or labelme2yolo.py to convert your data
 Arguments are as followed
 ``` python
-  input_dir: path for input data (image/json data)
-  output_dir: path to process data
+  input_dir: path to input data (image/JSON data)
+  output_dir: path for processed data
   train_rate: train and validation data rate (if train_rate = 0.85, train data is 85%)
 ```
 #### For coco data
