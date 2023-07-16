@@ -1,0 +1,16 @@
+#pip install -r requirements.txt
+pandas
+bbox_visualizer
+matplotlib
+opencv-python
+scikit-learn
+jupyter_bbox_widget
+pyyaml
+pytest
+pytest-lazy-fixture
+black
+nbmake
+sphinx_rtd_theme
+tqdm
+sahi>=0.8.19
+jsonschema>=2.6.0
