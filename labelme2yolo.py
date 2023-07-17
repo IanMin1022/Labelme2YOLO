@@ -108,8 +108,6 @@ class labelme2yolo:
             else:
                 image_dir = img_dir
                 break
-
-        print(image_dir)
         
         for path in path:        
             with open(path, encoding=encoding) as cocojson:
@@ -197,10 +195,10 @@ class labelme2yolo:
                 dataset.name = name
     
             dataset.path_to_annotations = PurePath(path).parent
-    
+            print(dataset.path_to_annotations)
             self.dataset = dataset
             
-            labelme2yolo.ExportToYoloV5(input_path=input_path, output_path=output_path, copy_images=True, segmentation=True)[1]
+            labelme2yolo.ExportToYoloV5(input_path=image_dir, output_path=parent_path, copy_images=True, segmentation=True)[1]
 
     def ExportToYoloV5(
         self,
