@@ -92,7 +92,6 @@ class labelme2yolo:
             >>> dataset = importer.ImportCoco("coco_annotations.json")
         """
         parent_path = os.path.dirname(path[0])
-        print("hello")
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
         image_files = []
         
@@ -101,7 +100,7 @@ class labelme2yolo:
                 for sub_path in glob.glob(os.path.join(file_path, '*')):
                     if os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
                         image_files.append(file_path)
-                        pass
+                        break
             print(image_files)
         
         for path in path:        
