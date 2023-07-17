@@ -93,15 +93,14 @@ class labelme2yolo:
         """
         parent_path = os.path.dirname(path[0])
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
-        image_files = []
+        image_dir = []
         
         for file_path in glob.glob(os.path.join(parent_path, '*')):
             if os.path.isdir(file_path):
                 for sub_path in glob.glob(os.path.join(file_path, '*')):
                     if os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
-                        image_files.append(file_path)
+                        image_dir.append(file_path)
                         break
-            print(image_files)
         
         for path in path:        
             with open(path, encoding=encoding) as cocojson:
