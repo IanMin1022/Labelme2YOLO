@@ -91,93 +91,94 @@ class labelme2yolo:
             >>> from pylabel import importer
             >>> dataset = importer.ImportCoco("coco_annotations.json")
         """
-        with open(path, encoding=encoding) as cocojson:
-            annotations_json = json.load(cocojson)
-
-        # Store the 3 sections of the json as seperate json arrays
-        images = pd.json_normalize(annotations_json["images"])
-        images.columns = "img_" + images.columns
-        try:
-            images["img_folder"]
-        except:
-            images["img_folder"] = ""
-        # print(images)
-
-        # If the user has specified a different image folder then use that one
-        if path_to_images != None:
-            images["img_folder"] = path_to_images
-
-        astype_dict = {"img_width": "int64", "img_height": "int64", "img_depth": "int64"}
-        astype_keys = list(astype_dict.keys())
-        for element in astype_keys:
-            if element not in images.columns:
-                astype_dict.pop(element)
-        # print(astype_dict)
-        # images = images.astype({'img_width': 'int64','img_height': 'int64','img_depth': 'int64'})
-        images = images.astype(astype_dict)
-
-        annotations = pd.json_normalize(annotations_json["annotations"])
-        annotations.columns = "ann_" + annotations.columns
-
-        categories = pd.json_normalize(annotations_json["categories"])
-        categories.columns = "cat_" + categories.columns
-
-        # Converting this to string resolves issue #23
-        categories.cat_id = categories.cat_id.astype(str)
-
-        df = annotations
-
-        # Converting this to string resolves issue #23
-        df.ann_category_id = df.ann_category_id.astype(str)
-
-        df[["ann_bbox_xmin", "ann_bbox_ymin", "ann_bbox_width", "ann_bbox_height"]] = pd.DataFrame(
-            df.ann_bbox.tolist(), index=df.index
-        )
-        df.insert(8, "ann_bbox_xmax", df["ann_bbox_xmin"] + df["ann_bbox_width"])
-        df.insert(10, "ann_bbox_ymax", df["ann_bbox_ymin"] + df["ann_bbox_height"])
-
-        # debug print(df.info())
-
-        # Join the annotions with the information about the image to add the image columns to the dataframe
-        df = pd.merge(images, df, left_on="img_id", right_on="ann_image_id", how="left")
-        df = pd.merge(df, categories, left_on="ann_category_id", right_on="cat_id", how="left")
-
-        # Rename columns if needed from the coco column name to the pylabel column name
-        df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
-
-        # Drop columns that are not in the schema
-        df = df[df.columns.intersection(self.schema)]
-
-        # Add missing columns that are in the schema but not part of the table
-        df[list(set(self.schema) - set(df.columns))] = ""
-
-        # Reorder columns
-        df = df[self.schema]
-        df.index.name = "id"
-        df.annotated = 1
-
-        # Fill na values with empty strings which resolved some errors when
-        # working with images that don't have any annotations
-        df.fillna("", inplace=True)
-
-        # These should be strings
-        df.cat_id = df.cat_id.astype(str)
-
-        # These should be integers
-        df.img_width = df.img_width.astype(int)
-        df.img_height = df.img_height.astype(int)
-
-        dataset = Dataset(df)
-
-        # Assign the filename (without extension) as the name of the dataset
-        if name == None:
-            dataset.name = Path(path).stem
-        else:
-            dataset.name = name
-
-        dataset.path_to_annotations = PurePath(path).parent
-
-        self.dataset = dataset
+        for path in path:
+            with open(path, encoding=encoding) as cocojson:
+                annotations_json = json.load(cocojson)
+    
+            # Store the 3 sections of the json as seperate json arrays
+            images = pd.json_normalize(annotations_json["images"])
+            images.columns = "img_" + images.columns
+            try:
+                images["img_folder"]
+            except:
+                images["img_folder"] = ""
+            # print(images)
+    
+            # If the user has specified a different image folder then use that one
+            if path_to_images != None:
+                images["img_folder"] = path_to_images
+    
+            astype_dict = {"img_width": "int64", "img_height": "int64", "img_depth": "int64"}
+            astype_keys = list(astype_dict.keys())
+            for element in astype_keys:
+                if element not in images.columns:
+                    astype_dict.pop(element)
+            # print(astype_dict)
+            # images = images.astype({'img_width': 'int64','img_height': 'int64','img_depth': 'int64'})
+            images = images.astype(astype_dict)
+    
+            annotations = pd.json_normalize(annotations_json["annotations"])
+            annotations.columns = "ann_" + annotations.columns
+    
+            categories = pd.json_normalize(annotations_json["categories"])
+            categories.columns = "cat_" + categories.columns
+    
+            # Converting this to string resolves issue #23
+            categories.cat_id = categories.cat_id.astype(str)
+    
+            df = annotations
+    
+            # Converting this to string resolves issue #23
+            df.ann_category_id = df.ann_category_id.astype(str)
+    
+            df[["ann_bbox_xmin", "ann_bbox_ymin", "ann_bbox_width", "ann_bbox_height"]] = pd.DataFrame(
+                df.ann_bbox.tolist(), index=df.index
+            )
+            df.insert(8, "ann_bbox_xmax", df["ann_bbox_xmin"] + df["ann_bbox_width"])
+            df.insert(10, "ann_bbox_ymax", df["ann_bbox_ymin"] + df["ann_bbox_height"])
+    
+            # debug print(df.info())
+    
+            # Join the annotions with the information about the image to add the image columns to the dataframe
+            df = pd.merge(images, df, left_on="img_id", right_on="ann_image_id", how="left")
+            df = pd.merge(df, categories, left_on="ann_category_id", right_on="cat_id", how="left")
+    
+            # Rename columns if needed from the coco column name to the pylabel column name
+            df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
+    
+            # Drop columns that are not in the schema
+            df = df[df.columns.intersection(self.schema)]
+    
+            # Add missing columns that are in the schema but not part of the table
+            df[list(set(self.schema) - set(df.columns))] = ""
+    
+            # Reorder columns
+            df = df[self.schema]
+            df.index.name = "id"
+            df.annotated = 1
+    
+            # Fill na values with empty strings which resolved some errors when
+            # working with images that don't have any annotations
+            df.fillna("", inplace=True)
+    
+            # These should be strings
+            df.cat_id = df.cat_id.astype(str)
+    
+            # These should be integers
+            df.img_width = df.img_width.astype(int)
+            df.img_height = df.img_height.astype(int)
+    
+            dataset = Dataset(df)
+    
+            # Assign the filename (without extension) as the name of the dataset
+            if name == None:
+                dataset.name = Path(path).stem
+            else:
+                dataset.name = name
+    
+            dataset.path_to_annotations = PurePath(path).parent
+    
+            self.dataset = dataset
 
     def ExportToYoloV5(
         self,
@@ -480,8 +481,7 @@ if __name__ == "__main__":
                 
         label_path = output + "/labels"
 
-        for i in range(len(json_path)):
-            labelme2yolo.ImportCoco(path=json_path[i], path_to_images="", name="data_coco")
-            labelme2yolo.ExportToYoloV5(input_path=input, output_path=label_path, copy_images=True, segmentation=True)[1]
+        labelme2yolo.ImportCoco(path=json_path[i], path_to_images="", name="data_coco")
+        labelme2yolo.ExportToYoloV5(input_path=input, output_path=label_path, copy_images=True, segmentation=True)[1]
     else:
         print("Please define the path for labelme dataset location")
