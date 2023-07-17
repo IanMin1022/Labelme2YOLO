@@ -94,12 +94,12 @@ class labelme2yolo:
         parent_path = os.path.dirname(path[0])
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
         image_files = []
-        print(parent_path)
+        
         for file_path in glob.glob(os.path.join(parent_path, '*')):
-            print(file_path)
+            subdirectories = [os.path.join(parent_path, subdir) for subdir in os.listdir(file_path) if os.path.isdir(os.path.join(file_path, subdir))]
+
             if os.path.isfile(file_path) and any(file_path.lower().endswith(ext) for ext in image_extensions):
                 image_files.append(file_path)
-        print(image_files)
         
         for path in path:        
             with open(path, encoding=encoding) as cocojson:
@@ -189,7 +189,7 @@ class labelme2yolo:
             dataset.path_to_annotations = PurePath(path).parent
     
             self.dataset = dataset
-            print("hiiiiiii", path)
+            
             labelme2yolo.ExportToYoloV5(input_path=input_path, output_path=output_path, copy_images=True, segmentation=True)[1]
 
     def ExportToYoloV5(
