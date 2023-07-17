@@ -180,6 +180,8 @@ class labelme2yolo:
     
             self.dataset = dataset
 
+            labelme2yolo.ExportToYoloV5(input_path=input_path, output_path=output_path, copy_images=True, segmentation=True)[1]
+
     def ExportToYoloV5(
         self,
         input_path=None,
@@ -479,9 +481,6 @@ if __name__ == "__main__":
             if os.path.isfile(file_path) and file_path.endswith('.json'):
                 json_path.append(file_path)
                 
-        label_path = output + "/labels"
-
-        labelme2yolo.ImportCoco(path=json_path, path_to_images="", name="data_coco")
-        labelme2yolo.ExportToYoloV5(input_path=input, output_path=label_path, copy_images=True, segmentation=True)[1]
+        labelme2yolo.ImportCoco(path=json_path, path_to_images="", name="data_coco")        
     else:
         print("Please define the path for labelme dataset location")
