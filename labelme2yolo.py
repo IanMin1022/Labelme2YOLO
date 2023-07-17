@@ -193,7 +193,7 @@ class labelme2yolo:
             # These should be integers
             df.img_width = df.img_width.astype(int)
             df.img_height = df.img_height.astype(int)
-            print(df)
+            
             dataset = Dataset(df)
     
             # Assign the filename (without extension) as the name of the dataset
@@ -207,12 +207,9 @@ class labelme2yolo:
             if self.dataset is not None:
                 # Append the new dataset to the existing dataset
                 self.dataset.df = pd.concat([self.dataset.df, dataset.df], ignore_index=True)
-                print("hhhhhhhhhhhhhh", self.dataset)
             else:
                 self.dataset = dataset
-                print("iiiiiiiiiii", self.dataset)
-                
-                
+                                
             labelme2yolo.ExportToYoloV5(input_path=image_dir, output_path=parent_path+add_path, copy_images=True, segmentation=True)[1]
 
     def ExportToYoloV5(
@@ -267,6 +264,8 @@ class labelme2yolo:
 
         """
         ds = self.dataset
+
+        print(ds)
 
         add_path = None
         
