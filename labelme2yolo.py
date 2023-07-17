@@ -11,7 +11,7 @@ from tqdm import tqdm
 import csv
 import argparse
 
-from labelme2coco import labelme2coco
+from labelme2coco import labelme2coco, input
 from dataset import Dataset
 
 
@@ -481,7 +481,7 @@ if __name__ == "__main__":
                 
         label_path = output + "/labels"
 
-        labelme2yolo.ImportCoco(path=json_path[i], path_to_images="", name="data_coco")
+        labelme2yolo.ImportCoco(path=json_path, path_to_images="", name="data_coco")
         labelme2yolo.ExportToYoloV5(input_path=input, output_path=label_path, copy_images=True, segmentation=True)[1]
     else:
         print("Please define the path for labelme dataset location")
