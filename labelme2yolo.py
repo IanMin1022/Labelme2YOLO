@@ -11,7 +11,7 @@ from tqdm import tqdm
 import csv
 import argparse
 
-from labelme2coco import labelme2coco, input_path, output_path
+from labelme2coco import labelme2coco
 from dataset import Dataset
 
 
@@ -179,8 +179,7 @@ class labelme2yolo:
             dataset.path_to_annotations = PurePath(path).parent
     
             self.dataset = dataset
-            print(input_path)
-            print(output_path)
+            print("hiiiiiii", path)
             labelme2yolo.ExportToYoloV5(input_path=input_path, output_path=output_path, copy_images=True, segmentation=True)[1]
 
     def ExportToYoloV5(
