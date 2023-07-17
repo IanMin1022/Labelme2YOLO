@@ -115,11 +115,11 @@ class labelme2yolo:
                 annotations_json = json.load(cocojson)
 
             if 'val' in path:
-                add_path = "/val"
+                add_path = "/labels/val"
             elif 'train' in path:
-                add_path = "/train"
+                add_path = "/labels/train"
             else:
-                add_path = ""
+                add_path = "/labels"
     
             # Store the 3 sections of the json as seperate json arrays
             images = pd.json_normalize(annotations_json["images"])
@@ -261,6 +261,15 @@ class labelme2yolo:
         """
         ds = self.dataset
 
+        add_path = None
+
+        if 'val' in output_path:
+                add_path = "val"
+            elif 'train' in output_path:
+                add_path = "train"
+            else:
+                add_path = ""
+
         # Inspired by https://github.com/aws-samples/groundtruth-object-detection/blob/master/create_annot.py
         yolo_dataset = ds.df.copy(deep=True)
         # Convert nan values in the split column from nan to '' because those are easier to work with with when building paths
@@ -273,7 +282,8 @@ class labelme2yolo:
         path = PurePath(output_path)
         path_dict["label_path"] = output_path
         # The /images directory should be next to the /labels directory
-        path_dict["image_path"] = str(PurePath(path.parent, "images"))
+        path_dict["image_path"] = str(PurePath(path.parent, "images", add_path))
+        print(path_dict)
         # The root directory is in parent of the /labels and /images directories
         path_dict["root_path"] = str(PurePath(path.parent))
         # The YAML file should be in root directory
