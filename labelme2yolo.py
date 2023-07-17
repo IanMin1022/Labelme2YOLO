@@ -454,6 +454,7 @@ class labelme2yolo:
         # Create YAML file
         if yaml_file:
             # Make a set with all of the different values of the split column
+            print("???", yolo_dataset.split)
             splits = set(yolo_dataset.split)
             # Build a dict with all of the values that will go into the YAML file
             dict_file = {}
@@ -461,16 +462,13 @@ class labelme2yolo:
             
 
             # If train is one of the splits, append train to path
-            print("hhhhhhhhiiiiiiiiiiiiii", splits)
             if use_splits and "train" in splits:
-                print("hooooooooooo")
                 dict_file["train"] = str(PurePath(path_dict["image_path"], "train"))
             else:
                 dict_file["train"] = path_dict["image_path"]
 
             # If val is one of the splits, append val to path
             if use_splits and "val" in splits:
-                print("hyyyyyyyyyyyyyyyyyyy")
                 dict_file["val"] = str(PurePath(path_dict["image_path"], "val"))
             else:
                 # If there is no val split, use the train split as the val split
