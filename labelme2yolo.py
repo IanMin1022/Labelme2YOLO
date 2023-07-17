@@ -179,7 +179,8 @@ class labelme2yolo:
             dataset.path_to_annotations = PurePath(path).parent
     
             self.dataset = dataset
-
+            print(input_path)
+            print(output_path)
             labelme2yolo.ExportToYoloV5(input_path=input_path, output_path=output_path, copy_images=True, segmentation=True)[1]
 
     def ExportToYoloV5(
