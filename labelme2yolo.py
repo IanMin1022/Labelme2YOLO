@@ -262,7 +262,7 @@ class labelme2yolo:
         ds = self.dataset
 
         add_path = None
-
+        print(output_path)
         if 'val' in output_path:
                 add_path = "val"
             elif 'train' in output_path:
