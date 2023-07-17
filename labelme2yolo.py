@@ -96,8 +96,9 @@ class labelme2yolo:
         image_files = []
         
         for file_path in glob.glob(os.path.join(parent_path, '*')):
+            print(file_path)
             if os.path.isdir(file_path):
-                print(file_path)
+                print("hello", file_path)
                 if os.path.isfile(file_path) and any(file_path.lower().endswith(ext) for ext in image_extensions):
                     image_files.append(file_path)
         
