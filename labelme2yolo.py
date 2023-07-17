@@ -101,6 +101,8 @@ class labelme2yolo:
                     if os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
                         image_dir.append(file_path)
                         break
+
+        print(image_dir)
         
         for path in path:        
             with open(path, encoding=encoding) as cocojson:
