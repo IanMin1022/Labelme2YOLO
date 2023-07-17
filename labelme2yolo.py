@@ -264,7 +264,7 @@ class labelme2yolo:
         add_path = None
         
         if 'val' in output_path:
-                add_path = "val"
+            add_path = "val"
         elif 'train' in output_path:
             add_path = "train"
         else:
@@ -282,7 +282,7 @@ class labelme2yolo:
         path = PurePath(output_path)
         path_dict["label_path"] = output_path
         # The /images directory should be next to the /labels directory
-        path_dict["image_path"] = str(PurePath(path.parent, "images", add_path))
+        path_dict["image_path"] = str(PurePath(path.parent.parent, "images", add_path))
         print(path_dict)
         # The root directory is in parent of the /labels and /images directories
         path_dict["root_path"] = str(PurePath(path.parent))
