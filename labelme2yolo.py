@@ -262,13 +262,13 @@ class labelme2yolo:
         ds = self.dataset
 
         add_path = None
-        print(output_path)
+        
         if 'val' in output_path:
                 add_path = "val"
-            elif 'train' in output_path:
-                add_path = "train"
-            else:
-                add_path = ""
+        elif 'train' in output_path:
+            add_path = "train"
+        else:
+            add_path = ""
 
         # Inspired by https://github.com/aws-samples/groundtruth-object-detection/blob/master/create_annot.py
         yolo_dataset = ds.df.copy(deep=True)
