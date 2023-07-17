@@ -205,7 +205,7 @@ class labelme2yolo:
             dataset.path_to_annotations = PurePath(path).parent
             
             self.dataset = dataset
-            
+            print("hioiiiiiiiiiiiiiiii", dataset)
             labelme2yolo.ExportToYoloV5(input_path=image_dir, output_path=parent_path+add_path, copy_images=True, segmentation=True)[1]
 
     def ExportToYoloV5(
@@ -454,7 +454,6 @@ class labelme2yolo:
             
 
             # If train is one of the splits, append train to path
-            print("hiiiiiiiiiiiiiii", splits)
             if use_splits and "train" in splits:
                 dict_file["train"] = str(PurePath(path_dict["image_path"], "train"))
             else:
