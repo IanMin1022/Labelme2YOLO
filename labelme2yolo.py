@@ -3,7 +3,7 @@ from typing import List
 import pandas as pd
 import numpy as np
 import xml.etree.ElementTree as ET
-import os, sys
+import os, sys, glob
 from pathlib import Path, PurePath
 import yaml
 import shutil
@@ -473,11 +473,10 @@ if __name__ == "__main__":
         )
 
         json_path = []
-        for file_path in glob.glob(os.path.join(folder_path, '*')):
+        for file_path in glob.glob(os.path.join(output, '*')):
             if os.path.isfile(file_path) and file_path.endswith('.json'):
                 json_path.append(file_path)
                 
-        #json_path = output + "/dataset.json"
         label_path = output + "/labels"
 
         for i in range(len(json_path)):
