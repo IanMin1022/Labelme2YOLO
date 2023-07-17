@@ -472,10 +472,17 @@ if __name__ == "__main__":
             train_split_rate=rate,
         )
 
-        json_path = output + "/dataset.json"
+        json_path = []
+        for file_path in glob.glob(os.path.join(folder_path, '*')):
+            if os.path.isfile(file_path) and file_path.endswith('.json'):
+                json_path.append(file_path)
+                
+        #json_path = output + "/dataset.json"
         label_path = output + "/labels"
 
-        labelme2yolo.ImportCoco(path=json_path, path_to_images="", name="data_coco")
-        labelme2yolo.ExportToYoloV5(output_path=label_path, segmentation=True)[1]
+        for i in range(len(json_path)):
+            print(json_path[i])
+            labelme2yolo.ImportCoco(path=json_path[i], path_to_images="", name="data_coco")
+            labelme2yolo.ExportToYoloV5(output_path=label_path, segmentation=True)[1]
     else:
         print("Please define the path for labelme dataset location")
