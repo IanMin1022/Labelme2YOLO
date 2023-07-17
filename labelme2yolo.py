@@ -181,6 +181,7 @@ class labelme2yolo:
 
     def ExportToYoloV5(
         self,
+        input_path=None,
         output_path="training/labels",
         yaml_file="dataset.yaml",
         copy_images=False,
@@ -482,6 +483,6 @@ if __name__ == "__main__":
         for i in range(len(json_path)):
             print(json_path[i])
             labelme2yolo.ImportCoco(path=json_path[i], path_to_images="", name="data_coco")
-            labelme2yolo.ExportToYoloV5(output_path=label_path, segmentation=True)[1]
+            labelme2yolo.ExportToYoloV5(input_path=input, output_path=label_path, copy_images=True, segmentation=True)[1]
     else:
         print("Please define the path for labelme dataset location")
