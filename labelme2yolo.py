@@ -279,6 +279,7 @@ class labelme2yolo:
 
         # Inspired by https://github.com/aws-samples/groundtruth-object-detection/blob/master/create_annot.py
         yolo_dataset = ds.df.copy(deep=True)
+        print("!!!!", yolo_dataset)
         # Convert nan values in the split column from nan to '' because those are easier to work with with when building paths
         yolo_dataset.split = yolo_dataset.split.fillna("")
 
