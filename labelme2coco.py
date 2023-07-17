@@ -8,16 +8,16 @@ from sahi.utils.coco import Coco, CocoAnnotation, CocoCategory, CocoImage
 from sahi.utils.file import list_files_recursively, load_json, save_json
 from tqdm import tqdm
 
-input_path = None
-output_path = None
 
 class labelme2coco:
     def __init__(self):
         print("ready to import labelme data")
-        
 
     def get_coco_from_labelme_folder(
-        self, labelme_folder: str, coco_category_list: List = None, skip_labels: List[str] = []
+        self,
+        labelme_folder: str,
+        coco_category_list: List = None,
+        skip_labels: List[str] = [],
     ) -> Coco:
         """
         Args:
@@ -25,7 +25,9 @@ class labelme2coco:
             coco_category_list: start from a predefined coco cateory list
         """
         # get json list
-        _, abs_json_path_list = list_files_recursively(labelme_folder, contains=[".json"])
+        _, abs_json_path_list = list_files_recursively(
+            labelme_folder, contains=[".json"]
+        )
         labelme_json_list = abs_json_path_list
         labelme_json_list.sort()
 
@@ -40,7 +42,9 @@ class labelme2coco:
 
         # parse labelme annotations
         category_ind = 0
-        for json_path in tqdm(labelme_json_list, "Converting labelme annotations to COCO format"):
+        for json_path in tqdm(
+            labelme_json_list, "Converting labelme annotations to COCO format"
+        ):
             data = load_json(json_path)
             try:
                 # get image size
@@ -50,7 +54,9 @@ class labelme2coco:
                 width = data["imageWidth"]
                 height = data["imageHeight"]
                 # init coco image
-                coco_image = CocoImage(file_name=data["imagePath"], height=height, width=width)
+                coco_image = CocoImage(
+                    file_name=data["imagePath"], height=height, width=width
+                )
                 # iterate over annotations
                 for shape in data["shapes"]:
                     # set category name and id
@@ -68,7 +74,9 @@ class labelme2coco:
                     # add category if not present
                     if category_id is None:
                         category_id = category_ind
-                        coco.add_category(CocoCategory(id=category_id, name=category_name))
+                        coco.add_category(
+                            CocoCategory(id=category_id, name=category_name)
+                        )
                         category_ind += 1
 
                     # circles and lines to segmentation
@@ -141,10 +149,7 @@ class labelme2coco:
         coco = self.get_coco_from_labelme_folder(
             labelme_folder=labelme_folder, skip_labels=skip_labels
         )
-        
-        input_path = labelme_folder
-        output_path = export_dir
-        
+
         if 0 < train_split_rate < 1:
             result = coco.split_coco_as_train_val(train_split_rate)
             # export train split
