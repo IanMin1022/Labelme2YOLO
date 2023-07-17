@@ -8,12 +8,13 @@ from sahi.utils.coco import Coco, CocoAnnotation, CocoCategory, CocoImage
 from sahi.utils.file import list_files_recursively, load_json, save_json
 from tqdm import tqdm
 
+input_path = None
+output_path = None
 
 class labelme2coco:
     def __init__(self):
         print("ready to import labelme data")
-        self.input = None
-        self.output = None
+        
 
     def get_coco_from_labelme_folder(
         self, labelme_folder: str, coco_category_list: List = None, skip_labels: List[str] = []
@@ -140,8 +141,9 @@ class labelme2coco:
         coco = self.get_coco_from_labelme_folder(
             labelme_folder=labelme_folder, skip_labels=skip_labels
         )
-        self.input = labelme_folder
-        self.output = export_dir
+        
+        input_path = labelme_folder
+        output_path = export_dir
         
         if 0 < train_split_rate < 1:
             result = coco.split_coco_as_train_val(train_split_rate)
