@@ -451,7 +451,7 @@ class labelme2yolo:
             # Build a dict with all of the values that will go into the YAML file
             dict_file = {}
             dict_file["path"] = path_dict["root_path_from_yolo_dir"]
-            print("hiiiiiiiiii", dict_file["path"])
+            
 
             # If train is one of the splits, append train to path
             if use_splits and "train" in splits:
@@ -476,6 +476,7 @@ class labelme2yolo:
             # Save the yamlfile
             with open(path_dict["yaml_path"], "w") as file:
                 documents = yaml.dump(dict_file, file, encoding="utf-8", allow_unicode=True)
+                print(output_file_paths)
                 output_file_paths = [path_dict["yaml_path"]] + output_file_paths
 
         return output_file_paths
