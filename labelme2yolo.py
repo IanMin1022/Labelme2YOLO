@@ -286,7 +286,6 @@ class labelme2yolo:
             path_dict["image_path"] = str(PurePath(path.parent, "images", add_path))
         else:
             path_dict["image_path"] = str(PurePath(path.parent.parent, "images", add_path))
-        print(path_dict)
         # The root directory is in parent of the /labels and /images directories
         path_dict["root_path"] = str(PurePath(path.parent))
         # The YAML file should be in root directory
@@ -452,6 +451,7 @@ class labelme2yolo:
             # Build a dict with all of the values that will go into the YAML file
             dict_file = {}
             dict_file["path"] = path_dict["root_path_from_yolo_dir"]
+            print("hiiiiiiiiii", dict_file["path"])
 
             # If train is one of the splits, append train to path
             if use_splits and "train" in splits:
