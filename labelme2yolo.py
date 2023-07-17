@@ -91,10 +91,11 @@ class labelme2yolo:
             >>> from pylabel import importer
             >>> dataset = importer.ImportCoco("coco_annotations.json")
         """
+        parent_path = os.path.dirname(path[0])
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
         image_files = []
         
-        for file_path in glob.glob(os.path.join(path[0], '*')):
+        for file_path in glob.glob(os.path.join(parent_path, '*')):
             if os.path.isfile(file_path) and any(file_path.lower().endswith(ext) for ext in image_extensions):
                 image_files.append(file_path)
         print(image_files)
