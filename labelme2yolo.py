@@ -193,7 +193,7 @@ class labelme2yolo:
             # These should be integers
             df.img_width = df.img_width.astype(int)
             df.img_height = df.img_height.astype(int)
-    
+            print(df)
             dataset = Dataset(df)
     
             # Assign the filename (without extension) as the name of the dataset
@@ -279,7 +279,6 @@ class labelme2yolo:
 
         # Inspired by https://github.com/aws-samples/groundtruth-object-detection/blob/master/create_annot.py
         yolo_dataset = ds.df.copy(deep=True)
-        print("!!!!", yolo_dataset)
         # Convert nan values in the split column from nan to '' because those are easier to work with with when building paths
         yolo_dataset.split = yolo_dataset.split.fillna("")
 
@@ -455,7 +454,6 @@ class labelme2yolo:
         # Create YAML file
         if yaml_file:
             # Make a set with all of the different values of the split column
-            print("???", yolo_dataset.split)
             splits = set(yolo_dataset.split)
             # Build a dict with all of the values that will go into the YAML file
             dict_file = {}
