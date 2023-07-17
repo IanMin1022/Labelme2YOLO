@@ -130,6 +130,7 @@ class labelme2coco:
                 coco.add_image(coco_image)
             except:
                 print("\nPath for dataset is wrong, please verify your path")
+                break
 
         return coco
 
