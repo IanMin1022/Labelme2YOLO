@@ -122,7 +122,6 @@ class labelme2yolo:
                 add_path = "/labels"
     
             # Store the 3 sections of the json as seperate json arrays
-            print((annotations_json["images"]))
             images = pd.json_normalize(annotations_json["images"])
             images.columns = "img_" + images.columns
             try:
@@ -173,7 +172,7 @@ class labelme2yolo:
             # Rename columns if needed from the coco column name to the pylabel column name
             df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
             df.rename(columns={"img_path": "img_path"}, inplace=True)
-            df.img_path = "/"
+            df["img_path"] = "/"
             print("heeeeeeeee", df["img_path"])
             # Drop columns that are not in the schema
             df = df[df.columns.intersection(self.schema)]
