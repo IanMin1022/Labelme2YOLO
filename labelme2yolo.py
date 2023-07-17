@@ -461,14 +461,16 @@ class labelme2yolo:
             
 
             # If train is one of the splits, append train to path
-            print(splits)
+            print("hhhhhhhhiiiiiiiiiiiiii", splits)
             if use_splits and "train" in splits:
+                print("hooooooooooo")
                 dict_file["train"] = str(PurePath(path_dict["image_path"], "train"))
             else:
                 dict_file["train"] = path_dict["image_path"]
 
             # If val is one of the splits, append val to path
             if use_splits and "val" in splits:
+                print("hyyyyyyyyyyyyyyyyyyy")
                 dict_file["val"] = str(PurePath(path_dict["image_path"], "val"))
             else:
                 # If there is no val split, use the train split as the val split
