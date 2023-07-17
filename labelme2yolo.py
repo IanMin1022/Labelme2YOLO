@@ -265,7 +265,7 @@ class labelme2yolo:
         """
         ds = self.dataset
 
-        print(ds.df["img_filename"])
+        print(ds.df["img_path"])
 
         add_path = None
         
