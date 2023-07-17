@@ -17,6 +17,7 @@ from dataset import Dataset
 
 class labelme2yolo:
     def __init__(self, dataset=None):
+        print("ready to import coco data")
         self.dataset = dataset
         self.schema = [
             "img_folder",
