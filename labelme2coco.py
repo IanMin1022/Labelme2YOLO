@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 class labelme2coco:
     def __init__(self):
-        print("ready to import coco data")
+        print("ready to import labelme data")
 
     def get_coco_from_labelme_folder(
         self, labelme_folder: str, coco_category_list: List = None, skip_labels: List[str] = []
