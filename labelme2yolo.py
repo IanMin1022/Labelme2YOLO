@@ -122,7 +122,7 @@ class labelme2yolo:
                 add_path = "/labels"
     
             # Store the 3 sections of the json as seperate json arrays
-            print(json_normalize(annotations_json["images"]))
+            print((annotations_json["images"]))
             images = pd.json_normalize(annotations_json["images"])
             images.columns = "img_" + images.columns
             try:
