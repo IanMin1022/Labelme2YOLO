@@ -265,7 +265,7 @@ class labelme2yolo:
         """
         ds = self.dataset
 
-        print(ds)
+        print(ds.df)
 
         add_path = None
         
