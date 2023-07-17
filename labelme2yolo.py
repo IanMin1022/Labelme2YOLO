@@ -94,13 +94,13 @@ class labelme2yolo:
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
         image_files = []
         
-        for path in path:
-            print(path)
-            for file_path in glob.glob(os.path.join(path, '*')):
-                if os.path.isfile(file_path) and any(file_path.lower().endswith(ext) for ext in image_extensions):
-                    image_files.append(file_path)
-            print(image_files)
+        print(path)
+        for file_path in glob.glob(os.path.join(path, '*')):
+            if os.path.isfile(file_path) and any(file_path.lower().endswith(ext) for ext in image_extensions):
+                image_files.append(file_path)
+        print(image_files)
         
+        for path in path:        
             with open(path, encoding=encoding) as cocojson:
                 annotations_json = json.load(cocojson)
     
