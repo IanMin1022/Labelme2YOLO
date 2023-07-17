@@ -101,6 +101,13 @@ class labelme2yolo:
                     if os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
                         image_dir.append(file_path)
                         break
+        
+        for img_dir in image_dir:
+            if 'images' in img_dir.lower():
+                pass
+            else:
+                image_dir = img_dir
+                break
 
         print(image_dir)
         
