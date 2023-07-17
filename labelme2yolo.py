@@ -171,7 +171,7 @@ class labelme2yolo:
     
             # Rename columns if needed from the coco column name to the pylabel column name
             df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
-            df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
+            df.rename(columns={"img_path": "img_path"}, inplace=True)
             print("heeeeeeeee", df["img_path"])
             # Drop columns that are not in the schema
             df = df[df.columns.intersection(self.schema)]
