@@ -93,6 +93,7 @@ class labelme2yolo:
         """
         parent_path = os.path.dirname(path[0])
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
+        add_path = None
         image_dir = []
         
         for file_path in glob.glob(os.path.join(parent_path, '*')):
@@ -112,6 +113,13 @@ class labelme2yolo:
         for path in path:        
             with open(path, encoding=encoding) as cocojson:
                 annotations_json = json.load(cocojson)
+
+            if 'val' in path:
+                add_path = "/val"
+            elif 'train' in path:
+                add_path = "/train"
+            else:
+                add_path = ""
     
             # Store the 3 sections of the json as seperate json arrays
             images = pd.json_normalize(annotations_json["images"])
@@ -195,10 +203,10 @@ class labelme2yolo:
                 dataset.name = name
     
             dataset.path_to_annotations = PurePath(path).parent
-            print(PurePath(path))
+            
             self.dataset = dataset
             
-            labelme2yolo.ExportToYoloV5(input_path=image_dir, output_path=parent_path, copy_images=True, segmentation=True)[1]
+            labelme2yolo.ExportToYoloV5(input_path=image_dir, output_path=parent_path+add_path, copy_images=True, segmentation=True)[1]
 
     def ExportToYoloV5(
         self,
