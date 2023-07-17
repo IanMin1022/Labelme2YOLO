@@ -94,8 +94,7 @@ class labelme2yolo:
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
         image_files = []
         
-        print(path)
-        for file_path in glob.glob(os.path.join(path, '*')):
+        for file_path in glob.glob(os.path.join(path[0], '*')):
             if os.path.isfile(file_path) and any(file_path.lower().endswith(ext) for ext in image_extensions):
                 image_files.append(file_path)
         print(image_files)
