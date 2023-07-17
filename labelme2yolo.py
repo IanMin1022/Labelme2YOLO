@@ -11,7 +11,7 @@ from tqdm import tqdm
 import csv
 import argparse
 
-from labelme2coco import labelme2coco, input, output
+from labelme2coco import labelme2coco, input_path, output_path
 from dataset import Dataset
 
 
