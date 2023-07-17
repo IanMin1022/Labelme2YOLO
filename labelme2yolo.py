@@ -170,9 +170,9 @@ class labelme2yolo:
             df = pd.merge(df, categories, left_on="ann_category_id", right_on="cat_id", how="left")
     
             # Rename columns if needed from the coco column name to the pylabel column name
-            #print("hiiiiiiii", df["img_filename"])
             df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
-            print("heeeeeeeee", df["img_filename"])
+            df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
+            print("heeeeeeeee", df["img_path"])
             # Drop columns that are not in the schema
             df = df[df.columns.intersection(self.schema)]
     
