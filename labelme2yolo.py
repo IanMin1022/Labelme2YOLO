@@ -285,6 +285,7 @@ class labelme2yolo:
             # Create the folder that the images will be copied to
             print(add_path)
             for i in range(len(add_path)):
+                print(path_dict["image_path"]+add_path[i])
                 Path(path_dict["image_path"]+add_path[i]).mkdir(parents=True, exist_ok=True)
 
         # Drop rows that are not annotated
