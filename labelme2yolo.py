@@ -445,18 +445,15 @@ class labelme2yolo:
             dict_file["path"] = path_dict["root_path_from_yolo_dir"]
             
 
-            # If train is one of the splits, append train to path
-            if use_splits and "train" in splits:
-                dict_file["train"] = str(PurePath(path_dict["image_path"], "train"))
-            else:
-                dict_file["train"] = path_dict["image_path"]
-
-            # If val is one of the splits, append val to path
-            if use_splits and "val" in splits:
-                dict_file["val"] = str(PurePath(path_dict["image_path"], "val"))
-            else:
-                # If there is no val split, use the train split as the val split
-                dict_file["val"] = dict_file["train"]
+            # Define the path for train/val data
+            dict_file["train"] = path_dict["image_path"]
+            dict_file["val"] = dict_file["train"]
+            
+            for i in range(len(add_path)):
+                if add_path[i] == "/train":
+                    dict_file["train"] = str(PurePath(path_dict["image_path"], "train"))
+                elif add_path[i] == "/val":
+                    dict_file["val"] = str(PurePath(path_dict["image_path"], "val"))                
 
             # If test is one of the splits, make a test param and add test to the path
             if use_splits and "test" in splits:
@@ -469,9 +466,6 @@ class labelme2yolo:
             with open(path_dict["yaml_path"], "w") as file:
                 documents = yaml.dump(dict_file, file, encoding="utf-8", allow_unicode=True)                
                 output_file_paths = [path_dict["yaml_path"]] + output_file_paths
-
-        return output_file_paths
-
 
 if __name__ == "__main__":
     labelme2coco = labelme2coco()
