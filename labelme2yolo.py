@@ -412,7 +412,7 @@ class labelme2yolo:
             output_file_paths.append(destination)
 
             if copy_images:
-                print(df_single_img_annots)
+                print(df_single_img_annots.iloc[0].img_folder)
                 source_image_path = str(
                     Path(
                         df_single_img_annots.iloc[0].img_folder,
