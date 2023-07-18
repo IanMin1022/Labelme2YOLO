@@ -357,6 +357,7 @@ class labelme2yolo:
             # The values should be train, val, test or ''
             split_dir = df_single_img_annots["img_path"].iloc[0]
             destination = str(PurePath(dest_folder, split_dir, annot_txt_file))
+            print("iiiiiii", destination)
             Path(
                 dest_folder,
                 split_dir,
