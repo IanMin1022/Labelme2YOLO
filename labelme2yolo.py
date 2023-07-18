@@ -417,16 +417,13 @@ class labelme2yolo:
             output_file_paths.append(destination)
 
             if copy_images:
-                print("iiiiiiii", ds.path_to_imgs)
-                print(split_dir)
                 source_image_path = str(
                     Path(
-                        ds.path_to_annotations,
+                        ds.path_to_imgs,
                         df_single_img_annots.iloc[0].img_folder,
                         df_single_img_annots.iloc[0].img_filename,
                     )
                 )
-                print("hoooooooo", source_image_path)
                 current_file = Path(source_image_path)
                 assert (
                     current_file.is_file
