@@ -420,6 +420,7 @@ class labelme2yolo:
                             df_single_img_annots.iloc[0].img_filename,
                         )
                     )
+                    print("hiiiiiiiiii", path_dict["image_path"])
                     print(source_image_path)
                     current_file = Path(source_image_path)
                     assert (
