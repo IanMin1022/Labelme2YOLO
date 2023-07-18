@@ -359,6 +359,10 @@ class labelme2yolo:
             split_dir = df_single_img_annots["img_path"].iloc[0]
             annot_dir = dest_folder + split_dir
             destination = str(PurePath(annot_dir, annot_txt_file))
+            Path(
+                dest_folder,
+                split_dir,
+            ).mkdir(parents=True, exist_ok=True)
             
             # If segmentation = false then output bounding boxes
             if segmentation == False:
@@ -422,6 +426,9 @@ class labelme2yolo:
                 assert (
                     current_file.is_file
                 ), f"File does not exist: {source_image_path}. Check img_folder column values."
+                Path(path_dict["image_path"], split_dir).mkdir(
+                    parents=True, exist_ok=True
+                )
                 shutil.copy(
                     str(source_image_path),
                     str(PurePath(path_dict["image_path"], split_dir, img_filename)),
