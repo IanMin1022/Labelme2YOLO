@@ -254,13 +254,15 @@ class labelme2yolo:
             ['training/dataset.yaml', 'training/labels/frame_0002.txt', ...]
 
         """
+        add_path = []
         ds = self.dataset        
 
         # Inspired by https://github.com/aws-samples/groundtruth-object-detection/blob/master/create_annot.py
         yolo_dataset = ds.df.copy(deep=True)
         # Convert nan values in the split column from nan to '' because those are easier to work with with when building paths
         yolo_dataset.split = yolo_dataset.split.fillna("")
-        print(yolo_dataset["img_path"])
+        for data in yolo_dataset["img_path"]:
+            print(data)
         # Create all of the paths that will be used to manage the files in this dataset
         path_dict = {}
 
