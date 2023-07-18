@@ -343,6 +343,7 @@ class labelme2yolo:
             dest_folder = PurePath(ds.path_to_annotations, yolo_dataset.iloc[0].img_folder)
         else:
             dest_folder = output_path+"/label"
+            print("iiiiiii", dest_folder)
 
         os.makedirs(dest_folder, exist_ok=True)
 
