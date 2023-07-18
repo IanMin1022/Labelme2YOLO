@@ -101,14 +101,7 @@ class labelme2yolo:
                 for sub_path in glob.glob(os.path.join(file_path, '*')):
                     if os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
                         image_dir.append(file_path)
-                        break
-        
-        for img_dir in image_dir:
-            if 'images' in img_dir.lower():
-                pass
-            else:
-                image_dir = img_dir
-                break
+                        break        
         
         for path in path:        
             with open(path, encoding=encoding) as cocojson:
@@ -173,7 +166,6 @@ class labelme2yolo:
             df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
             df.rename(columns={"img_path": "img_path"}, inplace=True)
             df["img_path"] = add_path
-            print(df["img_path"])
             # Drop columns that are not in the schema
             df = df[df.columns.intersection(self.schema)]
     
@@ -182,7 +174,6 @@ class labelme2yolo:
     
             # Reorder columns
             df = df[self.schema]
-            print("22", df["img_path"])
             df.index.name = "id"
             df.annotated = 1
     
@@ -210,15 +201,11 @@ class labelme2yolo:
             if self.dataset is not None:
                 # Append the new dataset to the existing dataset
                 self.dataset.df = pd.concat([self.dataset.df, dataset.df], ignore_index=True)
-                print("333", self.dataset.df["img_path"])
             else:
                 self.dataset = dataset
                                 
-            labelme2yolo.ExportToYoloV5(input_path=image_dir, output_path=parent_path+add_path, copy_images=True, segmentation=True)[1]
-
     def ExportToYoloV5(
         self,
-        input_path=None,
         output_path="training/labels",
         yaml_file="dataset.yaml",
         copy_images=False,
@@ -269,20 +256,11 @@ class labelme2yolo:
         """
         ds = self.dataset        
 
-        add_path = None
-        
-        if 'val' in output_path:
-            add_path = "val"
-        elif 'train' in output_path:
-            add_path = "train"
-        else:
-            add_path = ""
-
         # Inspired by https://github.com/aws-samples/groundtruth-object-detection/blob/master/create_annot.py
         yolo_dataset = ds.df.copy(deep=True)
         # Convert nan values in the split column from nan to '' because those are easier to work with with when building paths
         yolo_dataset.split = yolo_dataset.split.fillna("")
-
+        print(yolo_dataset.split)
         # Create all of the paths that will be used to manage the files in this dataset
         path_dict = {}
 
@@ -290,10 +268,7 @@ class labelme2yolo:
         path = PurePath(output_path)
         path_dict["label_path"] = output_path
         # The /images directory should be next to the /labels directory
-        if add_path == "":
-            path_dict["image_path"] = str(PurePath(path.parent, "images", add_path))
-        else:
-            path_dict["image_path"] = str(PurePath(path.parent.parent, "images", add_path))
+        path_dict["image_path"] = str(PurePath(path.parent, "images"))
         # The root directory is in parent of the /labels and /images directories
         path_dict["root_path"] = str(PurePath(path.parent))
         # The YAML file should be in root directory
@@ -435,7 +410,6 @@ class labelme2yolo:
             if copy_images:
                 source_image_path = str(
                     Path(
-                        input_path,
                         df_single_img_annots.iloc[0].img_folder,
                         df_single_img_annots.iloc[0].img_filename,
                     )
@@ -528,6 +502,7 @@ if __name__ == "__main__":
             if os.path.isfile(file_path) and file_path.endswith('.json'):
                 json_path.append(file_path)
                 
-        labelme2yolo.ImportCoco(path=json_path, path_to_images="", name="data_coco")        
+        labelme2yolo.ImportCoco(path=json_path, path_to_images="", name="data_coco")
+        labelme2yolo.ExportToYoloV5(output_path=parent_path+add_path, copy_images=True, segmentation=True)[1]
     else:
         print("Please define the path for labelme dataset location")
