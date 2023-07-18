@@ -262,7 +262,7 @@ class labelme2yolo:
         # Convert nan values in the split column from nan to '' because those are easier to work with with when building paths
         yolo_dataset.split = yolo_dataset.split.fillna("")
         for data_path in yolo_dataset["img_path"]:
-            if data_path is not in add_path:
+            if data_path not in add_path:
                 add_path.append(data_path)
         print(add_path)
         # Create all of the paths that will be used to manage the files in this dataset
