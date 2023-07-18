@@ -412,26 +412,25 @@ class labelme2yolo:
             output_file_paths.append(destination)
 
             if copy_images:
-                for i in range(len(add_path)):
-                    tmp_path = Path(path_dict["image_path"]+add_path[i])
-                    print(tmp_path)
-                    source_image_path = str(
-                        Path(
-                            tmp_path,
-                            df_single_img_annots.iloc[0].img_folder,
-                            df_single_img_annots.iloc[0].img_filename,
-                        )
+                print(ds.path_to_annotations)
+                print(split_dir)
+                source_image_path = str(
+                    Path(
+                        ds.path_to_annotations
+                        df_single_img_annots.iloc[0].img_folder,
+                        df_single_img_annots.iloc[0].img_filename,
                     )
-                    print("hoooooooo", source_image_path)
-                    current_file = Path(source_image_path)
-                    assert (
-                        current_file.is_file
-                    ), f"File does not exist: {source_image_path}. Check img_folder column values."
-                    Path(path_dict["image_path"], split_dir).mkdir(parents=True, exist_ok=True)
-                    shutil.copy(
-                        str(source_image_path),
-                        str(PurePath(path_dict["image_path"], split_dir, img_filename)),
-                    )
+                )
+                print("hoooooooo", source_image_path)
+                current_file = Path(source_image_path)
+                assert (
+                    current_file.is_file
+                ), f"File does not exist: {source_image_path}. Check img_folder column values."
+                Path(path_dict["image_path"], split_dir).mkdir(parents=True, exist_ok=True)
+                shutil.copy(
+                    str(source_image_path),
+                    str(PurePath(path_dict["image_path"], split_dir, img_filename)),
+                )
             pbar.update()
 
         # Create YAML file
