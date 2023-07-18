@@ -280,7 +280,7 @@ class labelme2yolo:
         # The root directory is in parent of the /labels and /images directories
         path_dict["root_path"] = str(PurePath(path.parent))
         # The YAML file should be in root directory
-        path_dict["yaml_path"] = str(PurePath(path, yaml_file))
+        path_dict["yaml_path"] = str(PurePath(path_dict["root_path"], yaml_file))
         # The root directory will usually be next to the yolov5 directory.
         # Specify the relative path
         path_dict["root_path_from_yolo_dir"] = str(PurePath("../"))
@@ -454,7 +454,8 @@ class labelme2yolo:
                     dict_file["train"] = str(PurePath(path_dict["image_path"], "train"))
                 elif add_path[i] == "/val":
                     dict_file["val"] = str(PurePath(path_dict["image_path"], "val"))                
-
+            print(dict_file["train"])
+            print(dict_file["val"])
             # If test is one of the splits, make a test param and add test to the path
             if use_splits and "test" in splits:
                 dict_file["test"] = str(PurePath(path_dict["image_path"], "test"))
