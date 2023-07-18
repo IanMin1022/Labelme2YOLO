@@ -351,7 +351,7 @@ class labelme2yolo:
         pbar = tqdm(desc="Exporting YOLO files...", total=len(unique_images))
         for img_filename in unique_images:
             df_single_img_annots = yolo_dataset.loc[yolo_dataset.img_filename == img_filename]
-            print(df_single_img_annots["img_folder"])
+            print(df_single_img_annots["img_path"])
             basename, _ = os.path.splitext(img_filename)
             annot_txt_file = basename + ".txt"
             # Use the value of the split collumn to create a directory
