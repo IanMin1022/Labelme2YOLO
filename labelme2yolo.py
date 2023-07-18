@@ -413,14 +413,15 @@ class labelme2yolo:
 
             if copy_images:
                 for i in range(len(add_path)):
+                    tmp_path = Path(path_dict["image_path"]+add_path[i])
+                    print(tmp_path)
                     source_image_path = str(
                         Path(
-                            str(path_dict["image_path"]), add_path[i],
+                            tmp_path,
                             df_single_img_annots.iloc[0].img_folder,
                             df_single_img_annots.iloc[0].img_filename,
                         )
                     )
-                    print("hiiiiiiiiii", path_dict["image_path"])
                     print("hoooooooo", source_image_path)
                     current_file = Path(source_image_path)
                     assert (
