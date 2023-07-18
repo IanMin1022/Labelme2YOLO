@@ -271,7 +271,7 @@ class labelme2yolo:
         path = PurePath(output_path)
         path_dict["label_path"] = output_path
         # The /images directory should be next to the /labels directory
-        path_dict["image_path"] = str(PurePath(path.parent, "images"))
+        path_dict["image_path"] = str(PurePath(path, "images"))
         # The root directory is in parent of the /labels and /images directories
         path_dict["root_path"] = str(PurePath(path.parent))
         # The YAML file should be in root directory
@@ -283,9 +283,7 @@ class labelme2yolo:
 
         if copy_images:
             # Create the folder that the images will be copied to
-            print(add_path)
             for i in range(len(add_path)):
-                print(path_dict["image_path"]+add_path[i])
                 Path(path_dict["image_path"]+add_path[i]).mkdir(parents=True, exist_ok=True)
 
         # Drop rows that are not annotated
@@ -414,6 +412,7 @@ class labelme2yolo:
             output_file_paths.append(destination)
 
             if copy_images:
+                print(df_single_img_annots)
                 source_image_path = str(
                     Path(
                         df_single_img_annots.iloc[0].img_folder,
