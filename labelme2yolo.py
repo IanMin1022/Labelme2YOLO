@@ -198,8 +198,7 @@ class labelme2yolo:
                 dataset.name = name
     
             dataset.path_to_annotations = PurePath(path).parent
-            dataset.path_to_imgs = 
-            print("iiiiiiiiii", dataset.path_to_annotations)
+            dataset.path_to_imgs = PurePath(image_dir)
             
             if self.dataset is not None:
                 # Append the new dataset to the existing dataset
