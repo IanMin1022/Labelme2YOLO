@@ -100,8 +100,10 @@ class labelme2yolo:
             if os.path.isdir(file_path):
                 for sub_path in glob.glob(os.path.join(file_path, '*')):
                     if "images/train" in sub_path:
-                        print(sub_path)
-                    if os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
+                        break
+                    elif "images/val" in sub_path:
+                        break
+                    elif os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
                         image_dir = file_path
                         break        
         
@@ -415,7 +417,7 @@ class labelme2yolo:
             output_file_paths.append(destination)
 
             if copy_images:
-                print(ds.path_to_annotations)
+                print("iiiiiiii", ds.path_to_imgs)
                 print(split_dir)
                 source_image_path = str(
                     Path(
