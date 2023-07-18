@@ -356,8 +356,8 @@ class labelme2yolo:
             # Use the value of the split collumn to create a directory
             # The values should be train, val, test or ''
             split_dir = df_single_img_annots["img_path"].iloc[0]
-            print("jjjjjjj", dest_folder)
-            destination = str(PurePath(dest_folder, split_dir, annot_txt_file))
+            annot_dir = dest_folder + split_dir
+            destination = str(PurePath(annot_dir, annot_txt_file))
             print("iiiiiii", destination)
             Path(
                 dest_folder,
