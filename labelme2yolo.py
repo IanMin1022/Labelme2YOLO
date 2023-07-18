@@ -345,7 +345,7 @@ class labelme2yolo:
             dest_folder = str(PurePath(output_path, "label"))
 
         for i in range(len(add_path)):
-            os.makedirs(path_dict["image_path"]+dest_folder, exist_ok=True)        
+            Path(dest_folder+add_path[i]).mkdir(parents=True, exist_ok=True)
 
         unique_images = yolo_dataset["img_filename"].unique()
         output_file_paths = []
