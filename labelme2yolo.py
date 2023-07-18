@@ -344,7 +344,8 @@ class labelme2yolo:
         else:
             dest_folder = str(PurePath(output_path, "label"))
 
-        os.makedirs(dest_folder, exist_ok=True)
+        for i in range(len(add_path)):
+            os.makedirs(path_dict["image_path"]+dest_folder, exist_ok=True)        
 
         unique_images = yolo_dataset["img_filename"].unique()
         output_file_paths = []
@@ -358,7 +359,6 @@ class labelme2yolo:
             split_dir = df_single_img_annots["img_path"].iloc[0]
             annot_dir = dest_folder + split_dir
             destination = str(PurePath(annot_dir, annot_txt_file))
-            print("iiiiiii", destination)
             Path(
                 dest_folder,
                 split_dir,
