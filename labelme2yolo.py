@@ -260,7 +260,7 @@ class labelme2yolo:
         yolo_dataset = ds.df.copy(deep=True)
         # Convert nan values in the split column from nan to '' because those are easier to work with with when building paths
         yolo_dataset.split = yolo_dataset.split.fillna("")
-        print(yolo_dataset.split)
+        print(yolo_dataset["img_path"])
         # Create all of the paths that will be used to manage the files in this dataset
         path_dict = {}
 
