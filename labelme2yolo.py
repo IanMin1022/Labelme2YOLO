@@ -280,7 +280,7 @@ class labelme2yolo:
         # The root directory is in parent of the /labels and /images directories
         path_dict["root_path"] = str(PurePath(path.parent))
         # The YAML file should be in root directory
-        path_dict["yaml_path"] = str(PurePath(path_dict["root_path"], yaml_file))
+        path_dict["yaml_path"] = str(PurePath(path, yaml_file))
         # The root directory will usually be next to the yolov5 directory.
         # Specify the relative path
         path_dict["root_path_from_yolo_dir"] = str(PurePath("../"))
