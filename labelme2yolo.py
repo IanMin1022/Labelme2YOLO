@@ -110,7 +110,7 @@ class labelme2yolo:
             if 'val' in path:
                 add_path = "/val"
             elif 'train' in path:
-                add_path = "train"
+                add_path = "/train"
             else:
                 add_path = ""
     
