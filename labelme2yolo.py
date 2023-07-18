@@ -342,7 +342,7 @@ class labelme2yolo:
         if output_path == None:
             dest_folder = PurePath(ds.path_to_annotations, yolo_dataset.iloc[0].img_folder)
         else:
-            dest_folder = output_path+"/label"
+            dest_folder = Path(output_path, "/label")
 
         os.makedirs(dest_folder, exist_ok=True)
 
@@ -356,6 +356,7 @@ class labelme2yolo:
             # Use the value of the split collumn to create a directory
             # The values should be train, val, test or ''
             split_dir = df_single_img_annots["img_path"].iloc[0]
+            print("jjjjjjj", dest_folder)
             destination = str(PurePath(dest_folder, split_dir, annot_txt_file))
             print("iiiiiii", destination)
             Path(
