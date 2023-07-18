@@ -423,6 +423,7 @@ class labelme2yolo:
                     )
                 )
                 current_file = Path(source_image_path)
+                print(path_dict["image_path"], split_dir, img_filename)
                 assert (
                     current_file.is_file
                 ), f"File does not exist: {source_image_path}. Check img_folder column values."
