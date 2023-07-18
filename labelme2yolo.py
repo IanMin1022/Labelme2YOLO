@@ -415,12 +415,12 @@ class labelme2yolo:
                 for i in range(len(add_path)):
                     source_image_path = str(
                         Path(
-                            path_dict["image_path"]+add_path[i],
+                            path_dict["image_path"], add_path[i],
                             df_single_img_annots.iloc[0].img_folder,
                             df_single_img_annots.iloc[0].img_filename,
                         )
                     )
-    
+                    print(source_image_path)
                     current_file = Path(source_image_path)
                     assert (
                         current_file.is_file
