@@ -342,7 +342,7 @@ class labelme2yolo:
         if output_path == None:
             dest_folder = PurePath(ds.path_to_annotations, yolo_dataset.iloc[0].img_folder)
         else:
-            dest_folder = output_path
+            dest_folder = output_path+"/label"
 
         os.makedirs(dest_folder, exist_ok=True)
 
@@ -351,15 +351,11 @@ class labelme2yolo:
         pbar = tqdm(desc="Exporting YOLO files...", total=len(unique_images))
         for img_filename in unique_images:
             df_single_img_annots = yolo_dataset.loc[yolo_dataset.img_filename == img_filename]
-            print("jjjjjjjjj", df_single_img_annots["img_path"])
             basename, _ = os.path.splitext(img_filename)
             annot_txt_file = basename + ".txt"
             # Use the value of the split collumn to create a directory
             # The values should be train, val, test or ''
-            if use_splits:
-                split_dir = df_single_img_annots.iloc[0].split
-            else:
-                split_dir = ""
+            split_dir = df_single_img_annots["img_path"]
             destination = str(PurePath(dest_folder, split_dir, annot_txt_file))
             Path(
                 dest_folder,
