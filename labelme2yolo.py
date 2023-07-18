@@ -423,16 +423,16 @@ class labelme2yolo:
                     )
                 )
                 current_file = Path(source_image_path)
-                print(path_dict["image_path"], split_dir, img_filename)
                 assert (
                     current_file.is_file
                 ), f"File does not exist: {source_image_path}. Check img_folder column values."
                 Path(path_dict["image_path"], split_dir).mkdir(
                     parents=True, exist_ok=True
                 )
+                labeled_path = path_dict["image_path"] + split_dir
                 shutil.copy(
                     str(source_image_path),
-                    str(PurePath(path_dict["image_path"], split_dir, img_filename)),
+                    str(PurePath(labeled_path, img_filename)),
                 )
             pbar.update()
 
