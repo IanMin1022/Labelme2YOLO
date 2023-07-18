@@ -94,13 +94,14 @@ class labelme2yolo:
         parent_path = os.path.dirname(path[0])
         image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
         add_path = None
-        image_dir = []
+        image_dir = None
         
         for file_path in glob.glob(os.path.join(parent_path, '*')):
             if os.path.isdir(file_path):
                 for sub_path in glob.glob(os.path.join(file_path, '*')):
+                    print(sub_path)
                     if os.path.isfile(sub_path) and any(sub_path.lower().endswith(ext) for ext in image_extensions):
-                        image_dir.append(file_path)
+                        image_dir = file_path
                         break        
         
         for path in path:        
@@ -196,7 +197,8 @@ class labelme2yolo:
             else:
                 dataset.name = name
     
-            dataset.path_to_annotations = PurePath(path)
+            dataset.path_to_annotations = PurePath(path).parent
+            dataset.path_to_imgs = 
             print("iiiiiiiiii", dataset.path_to_annotations)
             
             if self.dataset is not None:
