@@ -108,11 +108,11 @@ class labelme2yolo:
                 annotations_json = json.load(cocojson)
 
             if 'val' in path:
-                add_path = "/labels/val"
+                add_path = "/val"
             elif 'train' in path:
-                add_path = "/labels/train"
+                add_path = "train"
             else:
-                add_path = "/labels"
+                add_path = ""
     
             # Store the 3 sections of the json as seperate json arrays
             images = pd.json_normalize(annotations_json["images"])
@@ -264,7 +264,6 @@ class labelme2yolo:
         for data_path in yolo_dataset["img_path"]:
             if data_path not in add_path:
                 add_path.append(data_path)
-        print(add_path)
         # Create all of the paths that will be used to manage the files in this dataset
         path_dict = {}
 
@@ -284,7 +283,9 @@ class labelme2yolo:
 
         if copy_images:
             # Create the folder that the images will be copied to
-            Path(path_dict["image_path"]).mkdir(parents=True, exist_ok=True)
+            print(add_path)
+            for i in range(len(add_path)):
+                Path(path_dict["image_path"],add_path).mkdir(parents=True, exist_ok=True)
 
         # Drop rows that are not annotated
         # Note, having zero annotates can still be considered annotated
