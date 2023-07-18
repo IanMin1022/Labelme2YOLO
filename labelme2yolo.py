@@ -447,7 +447,7 @@ class labelme2yolo:
 
             # Define the path for train/val data
             dict_file["train"] = path_dict["image_path"]
-            dict_file["val"] = dict_file["train"]
+            dict_file["val"] = path_dict["image_path"]
             
             for i in range(len(add_path)):
                 if add_path[i] == "/train":
@@ -456,9 +456,6 @@ class labelme2yolo:
                     dict_file["val"] = str(PurePath(path_dict["image_path"], "val"))                
             print(dict_file["train"])
             print(dict_file["val"])
-            # If test is one of the splits, make a test param and add test to the path
-            if use_splits and "test" in splits:
-                dict_file["test"] = str(PurePath(path_dict["image_path"], "test"))
 
             dict_file["nc"] = ds.analyze.num_classes
             dict_file["names"] = ds.analyze.classes
