@@ -197,6 +197,7 @@ class labelme2yolo:
                 dataset.name = name
     
             dataset.path_to_annotations = PurePath(path).parent
+            print("iiiiiiiiii", dataset.path_to_annotations)
             
             if self.dataset is not None:
                 # Append the new dataset to the existing dataset
