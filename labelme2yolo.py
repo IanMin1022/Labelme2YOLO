@@ -465,6 +465,8 @@ class labelme2yolo:
                 documents = yaml.dump(dict_file, file, encoding="utf-8", allow_unicode=True)                
                 output_file_paths = [path_dict["yaml_path"]] + output_file_paths
 
+        return output_file_paths
+
 if __name__ == "__main__":
     labelme2coco = labelme2coco()
     labelme2yolo = labelme2yolo()
