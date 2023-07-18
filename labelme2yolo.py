@@ -196,7 +196,7 @@ class labelme2yolo:
             else:
                 dataset.name = name
     
-            dataset.path_to_annotations = PurePath(path).parent
+            dataset.path_to_annotations = PurePath(path)
             print("iiiiiiiiii", dataset.path_to_annotations)
             
             if self.dataset is not None:
