@@ -52,6 +52,7 @@ class labelme2coco:
             if "imagePath" in data:
                 image_path = str(Path(labelme_folder) / data["imagePath"])
             elif "file_name" in data:
+                print(data)
                 image_path = str(Path(labelme_folder) / data["file_name"])
             
             # use the image sizes provided by labelme (they already account for
