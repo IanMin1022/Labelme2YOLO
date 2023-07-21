@@ -158,8 +158,9 @@ class labelme2coco:
         for dirpath, dirnames, filenames in os.walk(labelme_folder):
             if any(filename.endswith('.json') for filename in filenames) and any(filename.lower().endswith(('.png', '.jpg', '.jpeg')) for filename in filenames):
                 labelme_folder = dirpath
+                pritn(dirpath)
                 break
-                        
+        print(labelme_folder)
         coco = self.get_coco_from_labelme_folder(
             labelme_folder=labelme_folder, skip_labels=skip_labels
         )
