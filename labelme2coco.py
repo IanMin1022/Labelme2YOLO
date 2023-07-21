@@ -129,8 +129,8 @@ class labelme2coco:
                     coco_image.add_annotation(coco_annotation)
                 coco.add_image(coco_image)
             except Exception as e:
-                print(e)
-                break
+                print("Erroe:", e)
+                continue
 
         return coco
 
