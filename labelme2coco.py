@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import List
-
+import os
 import numpy as np
 import argparse
 import sys
@@ -150,6 +150,16 @@ class labelme2coco:
             export_dir: path for coco jsons to be exported
             train_split_rate: ration fo train split
         """
+        image_extensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
+        json_extensions = [".json"]
+        add_path = None
+        image_dir = None
+
+        for dirpath, dirnames, filenames in os.walk(labelme_folder):
+            if any(filename.endswith('.json') for filename in filenames) and any(filename.lower().endswith(('.png', '.jpg', '.jpeg')) for filename in filenames):
+                labelme_folder = dirpath
+                break
+                        
         coco = self.get_coco_from_labelme_folder(
             labelme_folder=labelme_folder, skip_labels=skip_labels
         )
