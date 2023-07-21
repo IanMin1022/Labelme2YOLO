@@ -131,8 +131,6 @@ class labelme2coco:
                     coco_image.add_annotation(coco_annotation)
                 coco.add_image(coco_image)
             except Exception as e:
-                print("Error occured: ", e)
-                print("Maybe set your data path properly")
                 continue
 
         return coco
@@ -158,9 +156,8 @@ class labelme2coco:
         for dirpath, dirnames, filenames in os.walk(labelme_folder):
             if any(filename.endswith('.json') for filename in filenames) and any(filename.lower().endswith(('.png', '.jpg', '.jpeg')) for filename in filenames):
                 labelme_folder = dirpath
-                print(dirpath)
                 break
-        print(labelme_folder)
+                
         coco = self.get_coco_from_labelme_folder(
             labelme_folder=labelme_folder, skip_labels=skip_labels
         )
