@@ -132,6 +132,7 @@ class labelme2coco:
                 coco.add_image(coco_image)
             except Exception as e:
                 print("Error occured: ", e)
+                print("Maybe set your data path properly")
                 continue
 
         return coco
