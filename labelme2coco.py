@@ -128,8 +128,8 @@ class labelme2coco:
                         )
                     coco_image.add_annotation(coco_annotation)
                 coco.add_image(coco_image)
-            except:
-                print("\nPath for dataset is wrong, please verify your path")
+            except Exception as e:
+                print(e)
                 break
 
         return coco
