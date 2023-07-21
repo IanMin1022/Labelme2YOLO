@@ -48,8 +48,12 @@ class labelme2coco:
             data = load_json(json_path)
             
             # get image size
-            print(data)
-            image_path = str(Path(labelme_folder) / data["imagePath"])
+            image_path = None
+            if "imagePath" in data:
+                image_path = str(Path(labelme_folder) / data["imagePath"])
+            elif "file_name" in data:
+                image_path = str(Path(labelme_folder) / data["file_name"])
+            
             # use the image sizes provided by labelme (they already account for
             # things such as EXIF orientation)
             width = data["imageWidth"]
