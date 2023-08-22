@@ -170,6 +170,7 @@ class labelme2yolo:
             df.rename(columns={"img_file_name": "img_filename"}, inplace=True)
             df.rename(columns={"img_path": "img_path"}, inplace=True)
             df["img_path"] = add_path
+            print(add_path)
             # Drop columns that are not in the schema
             df = df[df.columns.intersection(self.schema)]
     
