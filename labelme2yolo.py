@@ -112,7 +112,7 @@ class labelme2yolo:
                 annotations_json = json.load(cocojson)
 
             if 'val' in path:
-                add_path = "/val"
+                add_path = "/val1"
             elif 'train' in path:
                 add_path = "/train"
             else:
